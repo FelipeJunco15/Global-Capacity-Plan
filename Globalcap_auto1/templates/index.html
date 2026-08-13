@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Global Capacity - Rango Dinámico</title>
+
+    <style>
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+
+            font-family: 'Segoe UI', system-ui, sans-serif;
+
+            background-color: #f1f5f9;
+
+            color: #1e293b;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+
+            padding: 20px;
+
+        }
+
+        .card {
+
+            background: #ffffff;
+
+            width: 100%;
+
+            max-width: 600px;
+
+            padding: 35px;
+
+            border-radius: 16px;
+
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+
+        }
+
+        .header { margin-bottom: 25px; text-align: center; }
+
+        h1 { color: #1e3a8a; font-size: 24px; margin-bottom: 10px; }
+
+        p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+       
+
+        .fechas-container {
+
+            display: flex;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .fecha-grupo {
+
+            flex: 1;
+
+        }
+
+        .fecha-grupo label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 6px;
+
+            color: #475569;
+
+        }
+
+        .fecha-grupo input[type="date"] {
+
+            width: 100%;
+
+            padding: 10px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 6px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            color: #1e293b;
+
+        }
+
+        .fecha-grupo input[type="date"]:focus {
+
+            border-color: #3b82f6;
+
+            outline: none;
+
+        }
+
+
+
+        .file-dropzone {
+
+            position: relative;
+
+            border: 2px dashed #cbd5e1;
+
+            background-color: #f8fafc;
+
+            padding: 30px 20px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+        }
+
+        .file-dropzone:hover { border-color: #3b82f6; background-color: #eff6ff; }
+
+        .file-dropzone input[type="file"] {
+
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+
+        }
+
+        .file-hint { display: block; font-size: 12px; color: #94a3b8; margin-top: 5px; }
+
+        button {
+
+            display: block; width: 100%; background-color: #2563eb; color: #ffffff;
+
+            font-size: 15px; font-weight: 600; padding: 14px; border: none;
+
+            border-radius: 8px; cursor: pointer; margin-top: 25px;
+
+        }
+
+        button:hover { background-color: #1d4ed8; }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+<div class="card">
+
+    <div class="header">
+
+        <h1>Global</h1>
+
+        <p>Motor de Extracción Dinámica Automatizada</p>
+
+    </div>
+
+
+
+    <form action="/unificar" method="POST" enctype="multipart/form-data">
+
+       
+
+        <div class="fechas-container">
+
+            <div class="fecha-grupo">
+
+                <label for="fecha_inicio">Fecha Inicio (Corte):</label>
+
+                <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+
+            </div>
+
+            <div class="fecha-grupo">
+
+                <label for="fecha_fin">Fecha Fin (Corte):</label>
+
+                <input type="date" id="fecha_fin" name="fecha_fin" required>
+
+            </div>
+
+        </div>
+
+
+
+        <div style="margin-bottom: 25px;">
+
+            <label style="display:block; font-size:14px; font-weight:600; margin-bottom:8px;">Subir los archivos Excel:</label>
+
+            <div class="file-dropzone">
+
+                <div style="font-size: 14px; color: #475569;">
+
+                    Arrastra tus archivos aquí o <strong>haz clic para buscar</strong>
+
+                </div>
+
+                <input type="file" name="archivos" multiple accept=".xlsx, .xls" required onchange="actualizarMensaje(this)">
+
+                <span class="file-hint" id="file-count">Selecciona los archivos correspondientes a las fechas</span>
+
+            </div>
+
+        </div>
+
+       
+
+        <button type="submit">Unificar y Descargar Reporte Maestro</button>
+
+    </form>
+
+</div>
+
+
+
+<script>
+
+    function actualizarMensaje(input) {
+
+        const hint = document.getElementById('file-count');
+
+        if (input.files.length > 0) {
+
+            hint.innerHTML = ` <strong>${input.files.length} archivos cargados</strong> listos para procesar.`;
+
+            hint.style.color = '#16a34a';
+
+        }
+
+    }
+
+</script>
+
+
+
+</body>
+
+</html> 
+
