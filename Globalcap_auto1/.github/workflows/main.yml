@@ -1,6 +1,7 @@
 name: Compilar Executable (.exe)
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main", "master" ]
 
@@ -19,15 +20,17 @@ jobs:
 
     - name: Instalar dependencias
       run: |
+        cd Globalcap_auto1
         python -m pip install --upgrade pip
         pip install flask flask-cors pandas openpyxl pyinstaller
 
     - name: Compilar ejecutable con PyInstaller
       run: |
+        cd Globalcap_auto1
         pyinstaller --onefile --noconsole --add-data "templates;templates" global.py
 
     - name: Guardar el ejecutable como Artefacto
       uses: actions/upload-artifact@v4
       with:
         name: Aplicacion-Exe
-        path: dist/global.exe
+        path: Globalcap_auto1/dist/global.exe
